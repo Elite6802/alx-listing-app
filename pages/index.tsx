@@ -1,44 +1,50 @@
+import React from 'react';
 import Head from 'next/head';
-import Card from '../components/common/Card';
-import { LISTINGS, APP_NAME } from '../constants';
+import Image from 'next/image';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import { HERO_BG_IMAGE } from '@/lib/constants';
 
-export default function Home() {
-  const handleCta = (id: string) => {
-    // Placeholder action for now — replace with routing later
-    // eslint-disable-next-line no-alert
-    alert(`You clicked Book on ${id}`);
-  };
-
+const HomePage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>{APP_NAME}</title>
-        <meta name="description" content="A modern Airbnb-style listing page scaffold" />
+        <title>Airbnb Clone - Find Your Favorite Place</title>
       </Head>
-
-      <main className="min-h-screen bg-gray-50">
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
-          <div className="mx-auto max-w-7xl px-4 py-4">
-            <h1 className="text-2xl font-bold tracking-tight">{APP_NAME}</h1>
-          </div>
-        </header>
-
-        <section className="mx-auto max-w-7xl px-4 py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {LISTINGS.map((listing) => (
-              <Card
-                key={listing.id}
-                id={listing.id}
-                title={listing.title}
-                location={listing.location}
-                pricePerNight={listing.pricePerNight}
-                imageUrl={listing.imageUrl}
-                onCtaClick={handleCta}
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
+          {/* Hero Section */}
+          <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-center text-white overflow-hidden">
+            {/* Background Image with Overlay */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src={HERO_BG_IMAGE}
+                alt="Beautiful property"
+                fill
+                style={{ objectFit: 'cover' }}
+                priority
               />
-            ))}
-          </div>
-        </section>
-      </main>
+              <div className="absolute inset-0 bg-black opacity-40"></div>
+            </div>
+
+            {/* Content Container */}
+            <div className="relative z-10 p-4">
+              <h1 className="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-md">
+                Find your favorite place here!
+              </h1>
+              <p className="mt-4 text-lg md:text-2xl font-medium drop-shadow-md">
+                The best prices for over 2 million properties worldwide.
+              </p>
+            </div>
+          </section>
+
+          {/* Additional content can be added here later */}
+        </main>
+        <Footer />
+      </div>
     </>
   );
-}
+};
+
+export default HomePage;
